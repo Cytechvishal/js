@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<p>Check Your Grade</p>
+    <input id="n1"  type="number" placeholder="Enter Your Marks in percentage = ">
+    
+    <button onclick="check()">Check </button>
+
+    <h1 id="answer">
+
+    </h1>
+    <script>
+
+      // write a program to check Your grade according to your marks
+
+        function check(){
+
+          marks =  Number(document.getElementById('n1').value)
+          
+          if (marks>=90 && marks<=100){
+              document.getElementById('answer').innerHTML = "Grade A"
+
+          }else if(marks>=70 && marks<=89){
+            document.getElementById('answer').innerHTML = "Grade B"
+
+          }else if(marks>=45 && marks<=69){
+            document.getElementById('answer').innerHTML = "Grade C"
+
+          }else if(marks>=33 && marks<=44){
+            document.getElementById('answer').innerHTML = "Grade D"
+
+          }else{
+            document.getElementById('answer').innerHTML = "Congratulation! You are FAIL..."
+          }
+
+        }
+        
+    </script>
+</body>
+</html>

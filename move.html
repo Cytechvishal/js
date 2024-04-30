@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scroll to Section</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em;
+  }
+  .active {
+    color: red; /* Change color to red */
+  }
+  #section-list {
+    display: none; /* Hide section list by default */
+  }
+  @media (min-width: 768px) {
+    #section-list {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #f0f0f0;
+      padding: 10px;
+      z-index: 999;
+      overflow-x: auto;
+      white-space: nowrap;
+      text-align: center;
+      display: block; /* Show section list on desktop */
+    }
+  }
+  @media (max-width: 767px) {
+    #section-list {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background-color: #f0f0f0;
+      padding: 10px;
+    }
+  }
+  #section-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+  }
+  #section-list li {
+    display: inline-block;
+    margin-right: 20px;
+  }
+</style>
+</head>
+<body>
+<div id="section-list">
+  <ul id="dynamic-section-list">
+  </ul>
+</div>
+<section id="section1">Section 1</section>
+<section id="section2">Section 2</section>
+<section id="section3">Section 3</section>
+<section id="section4">Section 4</section>
+
+<script>
+  const sections = document.querySelectorAll('section');
+  const dynamicSectionList = document.getElementById('dynamic-section-list');
+  const sectionList = document.getElementById('section-list');
+
+  // Populate the dynamic section list
+  sections.forEach(section => {
+    const listItem = document.createElement('li');
+    const link = document.createElement('a');
+    link.href = `#${section.id}`;
+    link.classList.add('section-link');
+    link.textContent = section.textContent;
+    listItem.appendChild(link);
+    dynamicSectionList.appendChild(listItem);
+  });
+
+  const sectionLinks = document.querySelectorAll('.section-link');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      if (pageYOffset >= sectionTop - sectionHeight / 2 && pageYOffset < sectionTop + sectionHeight / 2) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    sectionLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href').slice(1) === current) {
+        link.classList.add('active');
+      }
+    });
+
+    // Show section list on mobile when scrolling
+    if (window.innerWidth < 768) {
+      sectionList.style.display = 'block';
+      // Hide all section links except the active one
+      sectionLinks.forEach(link => {
+        link.parentElement.style.display = 'none';
+      });
+      const activeLink = document.querySelector(`.section-link[href="#${current}"]`);
+      if (activeLink) {
+        activeLink.parentElement.style.display = 'inline-block';
+        // Center the active link in the list for mobile devices
+        sectionList.scroll({
+          left: activeLink.offsetLeft - (window.innerWidth / 2 - activeLink.offsetWidth / 2),
+          behavior: 'smooth'
+        });
+      }
+    }
+  });
+
+  // Smooth scrolling
+  sectionLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href').slice(1);
+      const targetSection = document.getElementById(targetId);
+      window.scrollTo({
+        top: targetSection.offsetTop,
+        behavior: 'smooth'
+      });
+    });
+  });
+</script>
+</body>
+</html>

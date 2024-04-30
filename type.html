@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/typed.js@2.0.132/dist/typed.umd.js"></script>
+<div class="autotyping">We Do <br><span class="typing_text"></span></div>
+<script>
+//typing text animation script
+var typed = new Typed(".typing_text", {
+strings: ["PNG To JPG", "JPG TO PNG", "JPG TO PDF", "PDF TO JPG", "PDF TO EXCEL", "EXCEL TO PDF","WORD TO PDF", "PDF TO WORD", " IMAGE COLOR PICKER","PDF COMPRESSOR","IMAGE RESIZER","BACKGROUND REMOVER"],
+
+// image resizer
+// image background remover and changer
+// pdf compressor
+// image color picker 
+
+// pdf to word
+// word to pdf
+// excel to pdf
+// pdf to excel
+// pdf to jpg 
+// jpg to pdf
+// jpg to png
+// png to jpg
+typeSpeed: 100,
+backSpeed: 60,
+loop: true,
+cursorChar: '️',
+});
+</script>
+<style>
+.autotyping{
+font-family: poppins;
+color: #000000;
+font-size:100px;
+font-weight: 500;
+}
+.autotyping>span{
+color: #149EED;
+font-size:100px;
+font-weight: 500;
+}
+/*Shrinking for tablet*/
+@media (min-width: 481px) and (max-width: 768px) {
+.autotyping{
+font-size:65px;
+font-weight: 500;
+}
+.autotyping>span{
+font-size:65px;
+font-weight: 500;
+}
+}
+/*Shrinking for mobile*/
+@media (max-width: 480px) {
+.autotyping{
+font-size:55px;
+font-weight: 500;
+text-align: left;
+}
+.autotyping>span{
+font-size:55px;
+font-weight: 500;
+}
+}
+</style>
+</body>
+</html>

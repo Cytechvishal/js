@@ -1,0 +1,79 @@
+<script>
+    const sections = document.querySelectorAll('section');
+    const dynamicSectionList = document.getElementById('dynamic-section-list');
+    const sectionList = document.getElementById('section-list');
+  
+    // Populate the dynamic section list
+    sections.forEach(section => {
+      const listItem = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = `#${section.id}`;
+      link.classList.add('section-link');
+      link.textContent = section.textContent;
+      listItem.appendChild(link);
+      dynamicSectionList.appendChild(listItem);
+    });
+  
+    const sectionLinks = document.querySelectorAll('.section-link');
+  
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= sectionTop - sectionHeight / 2 && pageYOffset < sectionTop + sectionHeight / 2) {
+          current = section.getAttribute('id');
+        }
+      });
+  
+      sectionLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').slice(1) === current) {
+          link.classList.add('active');
+        }
+      });
+  
+      // Show section list on mobile when scrolling
+      if (window.innerWidth < 768) {
+        sectionList.style.display = 'block';
+        // Hide all section links except the active one
+        sectionLinks.forEach(link => {
+          link.parentElement.style.display = 'none';
+        });
+        const activeLink = document.querySelector(`.section-link[href="#${current}"]`);
+        if (activeLink) {
+          activeLink.parentElement.style.display = 'inline-block';
+          
+          // Calculate the total width of section links
+          let totalWidth = 0;
+          sectionLinks.forEach(link => {
+            totalWidth += link.parentElement.offsetWidth;
+          });
+          
+          // Calculate the left offset to center the active link
+          let offset = (window.innerWidth / 2 - activeLink.offsetWidth / 2) - (totalWidth / 2 - activeLink.parentElement.offsetLeft);
+          offset = Math.max(0, Math.min(offset, totalWidth - window.innerWidth)); // Clamp the offset
+          
+          // Move the section list horizontally with smooth scroll
+          sectionList.scroll({
+            left: offset,
+            behavior: 'smooth'
+          });
+        }
+      }
+    });
+  
+    // Smooth scrolling
+    sectionLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').slice(1);
+        const targetSection = document.getElementById(targetId);
+        window.scrollTo({
+          top: targetSection.offsetTop,
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+  

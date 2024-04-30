@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+</head>
+
+<body>
+
+    <!-- 0 1 1 2 3 5 8 13.... -->
+    <input id="number" type="number" placeholder="Enter nth Term ">
+
+    <button onclick="fibo()">Get fibonacci series</button>
+
+    <button onclick="window.print()">Print answer</button>
+
+    <p id="answer">
+
+    </p>
+
+    <script>
+        // a = 10
+        // b = 20
+
+        // n3 = n1
+        // n1 = n2
+        // n2 = n3  
+
+        // console.log("a=",a,"b=",b)
+
+        function fibo() {
+            n1 = 0
+            n2 = 1
+
+            n = Number(document.getElementById('number').value)
+            myArray = [0, 1]
+            for (i = 1; i <= n - 2; i++) {
+                n3 = n1 + n2
+                myArray.push(n3)
+                n1 = n2
+                n2 = n3
+
+
+            }
+
+            document.getElementById('answer').innerHTML = myArray
+
+
+
+        }
+
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>

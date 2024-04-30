@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Centered Active Menu</title>
+  <link rel="stylesheet" href="style.css">
+<style>
+    .menu-wrapper {
+  overflow-x: scroll;
+  white-space: nowrap; /* Prevent line breaks within menu */
+}
+
+.horizontal-menu {
+  display: flex;
+}
+
+.horizontal-menu li {
+  margin-right: 10px; /* Adjust spacing between menu items */
+}
+
+.section {
+  padding: 20px;
+  min-height: 50vh; /* Set minimum height for sections */
+}
+
+.active-centered {
+  /* Style for the active menu item (optional) */
+  background-color: #f0f0f0;
+}
+
+</style>
+
+</head>
+<body>
+  <div class="menu-wrapper">
+    <nav class="horizontal-menu">
+      <ul>
+        <li><a href="#section1">Section 1</a></li>
+        <li><a href="#section2">Section 2</a></li>
+        <li><a href="#section3">Section 3</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div id="section1" class="section">
+    </div>
+
+  <div id="section2" class="section">
+    </div>
+
+  <div id="section3" class="section">
+    </div>
+
+  <script src="script.js">
+
+window.addEventListener("scroll", function() {
+  const sections = document.querySelectorAll("[id]");
+  const activeMenuItem = document.querySelector(".active-centered");
+
+  if (activeMenuItem) {
+    for (const section of sections) {
+      const sectionTop = section.getBoundingClientRect().top;
+      const sectionHeight = section.offsetHeight;
+
+      if (window.scrollY >= sectionTop && window.scrollY < (sectionTop + sectionHeight)) {
+        const menuContainer = activeMenuItem.parentElement;
+        const menuContainerWidth = menuContainer.offsetWidth;
+        const menuItemWidth = activeMenuItem.offsetWidth;
+        const scrollLeft = (menuItemWidth / 2) - (menuContainerWidth / 2);
+
+        menuContainer.scrollLeft = scrollLeft;
+        break;
+      }
+    }
+  }
+});
+
+  </script> </body>
+</html>
